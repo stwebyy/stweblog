@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}新規ユーザー登録画面{% endblock %}
+{% block content %}
+<form action="" method="post" class="ui form">
+  {% csrf_token %}
+    <div class="ui stacked segment">
+        {% if form.non_field_errors %}
+        <div class="ui red message">
+            <div class="header">エラー</div>
+            <ul class="list">
+                {% for non_field_error in form.non_field_errors %}
+                <li>{{ non_field_error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% for field in form %}
+        <div class="field{% if field.errors %} error{% endif %}">
+          {# --- 入力フィールド --- #}
+          <div class="ui input{% if field.errors %} error{% endif %}">
+            {{ field }}
+          </div>
+          {% if field.errors %}
+          <p class="red message">{{ field.errors.0 }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      <button type="submit" class="ui fluid teal submit button">ユーザー登録</button>
+    </div>
+</form>
+
+<div class="ui message">
+    <a href="{% url 'user:login' %}">ログインはこちら</a>
+</div>
+{% endblock %}

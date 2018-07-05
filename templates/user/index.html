@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<h2 class="text-center">ようこそ！{{ user.username }}さん</h2>
+<div class="text-center pd50">
+<a href="#" class="btn btn-outline-info pd50">ブログ管理画面はこちらです。</a>
+</div>
+{% else %}
+<p><a href="{% url 'user:login' %}">ログイン</a>してくだしあ。<a href="{% url 'user:login' %}">ログイン</a>をすると、ブログ機能が使えるようになりますよ。</p>
+<p>ユーザー登録がおすみでない方は新規ユーザー登録は<a href="{% url 'user:register' %}">こちら</a></p>
+{% endif %}
+{% endblock %}

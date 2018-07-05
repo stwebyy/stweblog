@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2 class="text-center font-barance">プロフィール変更</h2>
+<form action="" method="post" class="ui form">
+  <div class="text-center">
+    {# --- 全体エラーメッセージ --- #}
+    {% if form.non_field_errors %}
+    <div class="ui red message">
+      <div class="header">エラー</div>
+      <ul class="list">
+        {% for non_field_error in form.non_field_errors %}
+          <li>{{ non_field_error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% for field in form %}
+      <div class="form-group">
+        <ul>
+        <li>{{ field.label }}</li>
+        <li>{{ field }}</li>
+      </ul>
+      </div>
+      {% if field.errors %}
+      <p class="red message">{{ field.errors.0 }}</p>
+      {% endif %}
+    {% endfor %}
+    {% csrf_token %}
+    <input type="submit" class="btn btn-info mt10" value="登録情報更新">　
+  </div>
+</form>
+{% endblock %}
