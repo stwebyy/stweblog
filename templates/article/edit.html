@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
 <h4 class="text-center">記事編集</h4>
 <form action="" method="post" class="form">
   {% csrf_token %}
+  {{ formset.management_form }}
         {% if form.non_field_errors %}
         <div class="alert alert-warning message">
             <div class="header">エラー</div>
@@ -26,6 +26,9 @@
           <p class="red message">{{ field.errors.0 }}</p>
           {% endif %}
         {% endfor %}
+        {% for tags in formset %}
+        {{ tags }}
+        {% endfor %}
         <input type="hidden" name="user_id" value="{{ user.uuid }}">
       <input type="submit" value="記事編集" class="btn btn-secondary">
 </form>
@@ -39,7 +42,9 @@
 <script>
 var simplemde = new SimpleMDE({
   element: document.getElementById("text-area"),
-  forceSync: true
+  autofocus: true,
+  forceSync: true,
+  placeholder: "本文",
 });
 </script>
 {% endblock %}

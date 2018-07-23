@@ -1,17 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="category-wrap">
-  <p class="text-center index_title">{{ object }}の記事一覧</p>
-  {% for a in article_list.article_find %}
-  <ul>
-    <li><a href="{% url 'article:detail' pk=a.id %}">{{ a }}</a></li>
-  </ul>
+<div class="row">
+  <div class="col-sm-9">
+<div class="index-wrap">
+  <p class="text-center index_title">＜<span class="font-bold">{{ object }}</span>＞の記事一覧</p>
+  {% for field in article_list.article_find %}
+  <article class="">
+    <div class="category-link">
+      <span class="font-small">投稿日:{{field.created_at|date:"Y年n月j日"}}　
+        カテゴリ：<a href="{% url 'article:category_detail' pk=field.category_id %}" class="link-view">{{ field.category_find }}</a>
+        　タグ：{% for tags in field.tag_find %}
+                <a href="{% url 'article:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
+              {% endfor %}
+    </span>
+    </div>
+    <h2><a href="{% url 'article:detail' pk=field.id %}">{{ field.title }}</a></h2>
+    <div class="discript">
+    <span class="index_descript">概要</span>
+      <span class="">{{ field.discript }}</span>
+    </div>
+    <div class="mt20">
+    <a href="{% url 'article:detail' pk=field.id %}" class="extra-link">>>続きを読む</a>
+  </div>
+  </article>
   {% endfor %}
+</div>
+</div>
+<div class="col-sm-3 text-center">
+{% include 'category_list.html' %}
+{% include 'tag_list.html' %}
+</div>
   <div class="btn-field">
-    <a href="{% url 'article:category_delete' pk=object.id %}">削除</a>
+    <a href="{% url 'article:tag_delete' pk=object.id %}">削除</a>
     <a href="{% url 'article:index' %}">記事管理画面</a>
     <a href="{% url 'article:post' %}">記事投稿</a>
     <a href="{% url 'article:category_post' %}">カテゴリ追加</a>
   </div>
-</div>{% endblock %}
+{% endblock %}
