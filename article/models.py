@@ -3,6 +3,7 @@ from django.utils import timezone
 from user.models import User
 from django.utils.html import mark_safe
 from markdown import markdown
+from simplemde.fields import SimpleMDEField
 
 
 

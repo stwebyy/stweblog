@@ -3,6 +3,7 @@
 body {
   font-family: メイリオ, Meiryo, "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "ＭＳ Ｐゴシック", Arial, Verdana, sans-serif;
   font-size: 15px!important;
+  line-height: 1.6!important;
 }
 
 ul {
@@ -213,13 +214,52 @@ footer {
   border-bottom: 1px #ddd solid;
 }
 
-.article-ul {
-  margin-bottom: 0px!important;
+.article_detail_wrap {
+  border-bottom: 1px #0b1375 solid;
 }
 
+.article_detail_wrap .article_text ul li {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.article_detail_wrap .article_text h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  border-left: 5px #0b1375 solid;
+  border-bottom: 1px #0b1375 solid;
+  padding-left: 5px;
+}
+
+/* .article_detail_wrap .article_text h2::before {
+  border-top: 1px #0b1375 solid;
+  content: "";
+  width: 40px;
+  left: -6%;
+  position: absolute;
+  margin-top: 15px;
+} */
+
+.article_detail_wrap
+
+
 .article_title {
-  font-size: 22px;
-  border: 1px #ddd solid;
+  font-size: 32px;
+  border: none!important;
+  margin: 15px 0;
+  border-bottom: 1px #0b1375 solid!important;
+}
+
+.article_discript {
+  font-size: 15px;
+  margin: 25px 0;
+  padding: 15px;
+  border: 1px #0b1375 solid!important;
+  font-weight: bold;
+}
+
+.article_text {
+  margin: 20px 0;
 }
 
 .create_day {
@@ -329,4 +369,32 @@ text-decoration: none;
 
 .pagenation-mt {
   margin-top: 40px;
+}
+
+.link-view {
+  text-decoration: underline;
+}
+
+.link-view:hover {
+  text-decoration: underline!important;
+}
+
+pre ol li {
+  list-style-type: decimal!important;
+}
+
+.editor-preview-side ul {
+  list-style-type: disc!important;
+}
+
+.editor-preview-side ol li {
+  list-style-type: decimal!important;
+}
+
+blockquote {
+  border-left: 5px solid #ddd;
+  color: #777;
+  padding: 1em;
+  padding-right: 0;
+  margin: 1.5em 0;
 }

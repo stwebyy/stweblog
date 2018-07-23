@@ -1,5 +1,6 @@
 import logging
 
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
@@ -55,21 +56,10 @@ class Detail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['more_context'] = Category.objects.all()
+        context['more_tags'] = Tag.objects.all()
         return context
 
 detail = Detail.as_view()
-
-
-class List(LoginRequiredMixin, ListView):
-    model = Article
-    template_name = 'article/list.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['more_context'] = Category.objects.all()
-        return context
-
-
-list = List.as_view()
 
 
 class PostView(LoginRequiredMixin, CreateView):
@@ -103,9 +93,24 @@ class EditView(UpdateView):
     model = Article
     form_class = EditForm
     template_name = "article/edit.html"
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        formset = TagInlineFormSet(self.request.POST, instance=self.object)
+        if formset.is_valid():
+            self.object.save()
+            formset.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get_context_data(self, **kwargs):
+        if 'formset' not in kwargs:
+            kwargs['formset'] = TagInlineFormSet(self.request.POST or None, instance=self.object)
+        return super().get_context_data(**kwargs)
+
     def get_success_url(self):
         return reverse('article:detail',args=(self.object.id,))
-
 
 edit = EditView.as_view()
 
@@ -129,6 +134,9 @@ class CategoryDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article_list'] = Article.objects.filter(category_id=self.object.id).order_by('id')
+        context['more_context'] = Category.objects.filter(user_id=self.request.user.uuid)
+        context['more_tags'] = Tag.objects.all()
+
         return context
 
 category_detail = CategoryDetail.as_view()
@@ -179,6 +187,8 @@ class TagDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article_list'] = Tag.objects.get(id=self.object.id)
+        context['more_context'] = Category.objects.filter(user_id=self.request.user.uuid)
+        context['more_tags'] = Tag.objects.all()
         return context
 
 tag_detail = TagDetail.as_view()

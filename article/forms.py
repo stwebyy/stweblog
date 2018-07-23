@@ -29,7 +29,6 @@ class TagSelectForm(forms.ModelForm):
             }),
         }
 
-
 TagInlineFormSet = forms.inlineformset_factory(
     Article, Article.tag.through, form=TagSelectForm, can_delete=False
 )
@@ -63,7 +62,7 @@ class EditForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ('title',  'discript', 'text', 'category', 'publick',)
+        fields = ('title', 'discript', 'text', 'category', 'publick',)
 
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
