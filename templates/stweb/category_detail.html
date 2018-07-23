@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="category-wrap">
+  <p class="text-center index_title">{{ object.name }}の記事一覧</p>
+  {% for articles in article_list %}
+  <ul>
+    <li><a href="{% url 'stweb:detail' pk=articles.id %}">{{ articles.title }}</a></li>
+  </ul>
+  {% endfor %}
+  <div class="btn-field">
+    <a href="{% url 'stweb:index' %}">TOPへ戻る</a>
+  </div>
+</div>{% endblock %}

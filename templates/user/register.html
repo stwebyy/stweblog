@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}新規ユーザー登録画面{% endblock %}
 {% block content %}
+<h4 class="text-center">新規登録画面</h4>
 <form action="" method="post" class="ui form">
   {% csrf_token %}
     <div class="ui stacked segment">
@@ -16,21 +17,18 @@
         </div>
         {% endif %}
         {% for field in form %}
-        <div class="field{% if field.errors %} error{% endif %}">
-          {# --- 入力フィールド --- #}
-          <div class="ui input{% if field.errors %} error{% endif %}">
-            {{ field }}
-          </div>
+          <ul>
+            <li>{{ field }}</li>
+          </ul>
           {% if field.errors %}
           <p class="red message">{{ field.errors.0 }}</p>
           {% endif %}
-        </div>
         {% endfor %}
-      <button type="submit" class="ui fluid teal submit button">ユーザー登録</button>
+        <input type="submit" class="btn btn-info mt10" value="新規登録">　
     </div>
 </form>
 
 <div class="ui message">
-    <a href="{% url 'user:login' %}">ログインはこちら</a>
+  <a class="btn link-btn" href="{% url 'user:login' %}">ログイン</a>
 </div>
 {% endblock %}

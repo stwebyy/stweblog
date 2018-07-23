@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'user',
     'article',
     'static',
+    'stweb',
+    'pure_pagination',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +110,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
+
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 2,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
 
 LANGUAGE_CODE = 'ja'
 

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="category-wrap">
+  <p class="text-center index_title">{{ object.name }}の記事一覧</p>
+  {% for articles in article_list %}
+  <ul>
+    <li><a href="{% url 'article:detail' pk=articles.id %}">{{ articles.title }}</a></li>
+  </ul>
+  {% endfor %}
+  <div class="btn-field">
+    <a href="{% url 'article:category_delete' pk=object.id %}">削除</a>
+    <a href="{% url 'article:index' %}">記事管理画面</a>
+    <a href="{% url 'article:post' %}">記事投稿</a>
+    <a href="{% url 'article:category_post' %}">カテゴリ追加</a>
+  </div>
+</div>{% endblock %}

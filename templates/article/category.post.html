@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h4 class="text-center">カテゴリ登録</h4>
+<ul>
+  <li>{{ category.name }}</li>
+</ul>
+<form action="" method="post" class="form">
+  {% csrf_token %}
+    <div class="ui stacked segment">
+        {% if form.non_field_errors %}
+        <div class="ui red message">
+            <div class="header">エラー</div>
+            <ul class="list">
+                {% for non_field_error in form.non_field_errors %}
+                <li>{{ non_field_error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% for field in form %}
+        <div class="field{% if field.errors %} error{% endif %}">
+          {# --- 入力フィールド --- #}
+          <div class="form-group">
+                  <ul>
+                    <li>{{ field.label }}</li>
+                    <li>{{ field }}</li>
+                  </ul>
+                </div>
+            {% if field.errors %}
+          <p class="red message">{{ field.errors.0 }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <input type="hidden" name="user_id" value="{{ user.uuid }}">
+      <input type="submit" value="カテゴリ登録" class="btn btn-success">
+    </div>
+</form>
+<div class="btn-field">
+<a href="/article/category.delete" class="btn btn-warning">カテゴリ削除</a>
+<a href="{% url 'article:index' %}" class="btn btn-info">記事管理画面</a>
+</div>
+{% endblock %}
