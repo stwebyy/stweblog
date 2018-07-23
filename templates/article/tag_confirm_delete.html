@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p>{{ object }} を削除していいですか?</p>
+        <form method="post">
+          <button class="btn btn-danger">削除する</button>
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+  </div>
+<a href="{% url 'article:index' %}">記事管理画面</a>
+<a href="{% url 'article:post' %}">記事投稿</a>
+<a href="{% url 'article:category_post' %}">カテゴリ追加</a>
+{% endblock %}

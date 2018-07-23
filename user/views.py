@@ -5,13 +5,17 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib import messages
 import uuid as uuid_lib
 
 from .forms import  RegisterForm, ProfileForm, LoginForm
+
 from .models import User
+from article.models import Article
+
 
 
 logger = logging.getLogger(__name__)
@@ -19,6 +23,13 @@ logger = logging.getLogger(__name__)
 
 class IndexView(TemplateView):
     template_name = 'user/index.html'
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated:
+            context = super().get_context_data(**kwargs)
+            context['more_context'] = Article.objects.all().filter(user_id=self.request.user.uuid)
+            number = Article.objects.all().filter(user_id=self.request.user.uuid)
+            context['count'] = number.count()
+            return context
 
 index = IndexView.as_view()
 

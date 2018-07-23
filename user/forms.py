@@ -30,6 +30,9 @@ class RegisterForm(forms.ModelForm):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
         self.fields['email'].widget.attrs = {'placeholder': 'メールアドレス'}
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
+
 
 
     def clean_username(self):

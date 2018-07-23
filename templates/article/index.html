@@ -1,2 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
+{% block content %}
+<div class="page-top">
+  <h4 class="text-center mb20">{{ user.username }}：記事管理画面</h4>
+</div>
+<div class="row">
+  <div class="col-sm-9">
+    <div class="index-wrap">
+      <p class="index_title"><span class="title_font"><a href="{% url 'article:list' %}">投稿記事一覧:{{ count }}件</a></span></p>
+      {% for field in object_list %}
+      <article class="">
+        <div class="category-link">
+          <span class="font-small">投稿日:{{field.created_at|date:"Y年n月j日"}}　
+            カテゴリ：<a href="{% url 'article:category_detail' pk=field.category_id %}">{{ field.category_find }}</a>　タグ：
+          {% for tags in field.tag_find %}
+            {{ tags.name }}
+          {% endfor %}
+        </span>
+        </div>
+        <h2><a href="{% url 'article:detail' pk=field.id %}">{{ field.title }}</a></h2>
+        <div class="discript">
+        <span class="index_descript">概要</span>
+          <span class="">{{ field.discript }}</span>
+        </div>
+        <div class="mt20">
+        <a href="{% url 'article:detail' pk=field.id %}" class="extra-link">>>続きを読む</a>
+      </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% include 'pagenation.html' %}
+  </div>
+  <div class="col-sm-3 text-center">
+    {% include 'category_list.html' %}
+    {% include 'tag_list.html' %}
+</div>
+</div>
+
+<div class="btn-field">
+  <a href="{% url 'article:post' %}" class="btn btn-primary">記事投稿</a>
+  <a href="{% url 'article:category_post' %}" class="btn btn-success">カテゴリ追加</a>
+  <a href="{% url 'article:tag_post' %}" class="btn btn-success">タグ追加</a>
+</div>
+{% endblock %}

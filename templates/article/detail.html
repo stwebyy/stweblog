@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-9">
+    <div class="article_wrap">
+      <div class="category-link">
+        <span class="font13">カテゴリ：</span><a href="{% url 'article:category_detail' pk=object.category_id %}">{{ object.category.name }}</a>
+        {% if object.updated_at == object.created_at %}
+        {% else %}
+        <span class="create_day">追記日：{{ object.updated_at }}</span>
+        {% endif %}
+        <span class="create_day">投稿日：{{ object.created_at }}</span>
+      </div>
+      <ul class="article-ul">
+        <li class="article_title">{{ object.title }}</li>
+        <li class="article_text">{{ object.get_text_as_markdown }}</li>
+      </ul>
+    </div>
+  </div>
+  {% include 'category_list.html' %}
+</div>
+<div class="btn-field">
+  <a href="{% url 'article:edit' pk=object.id %}" class="btn btn-secondary">記事編集</a>
+  <a href="{% url 'article:article_delete' pk=object.id %}" class="btn btn-warning">削除</a>
+  <a href="{% url 'article:index' %}" class="btn btn-info">記事管理画面</a>
+  <a href="{% url 'article:post' %}" class="btn btn-primary">記事投稿</a>
+  <a href="{% url 'article:category_post' %}" class="btn btn-success">カテゴリ追加</a>
+</div>
+{% endblock %}

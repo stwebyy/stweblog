@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h4 class="text-center">記事編集</h4>
+<form action="" method="post" class="form">
+  {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-warning message">
+            <div class="header">エラー</div>
+            <ul class="list">
+                {% for non_field_error in form.non_field_errors %}
+                <li>{{ non_field_error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% for field in form %}
+          <div class="form-group">
+            <ul>
+              <li>{{ field.label }}</li>
+              <li>{{ field }}</li>
+            </ul>
+          </div>
+            {% if field.errors %}
+          <p class="red message">{{ field.errors.0 }}</p>
+          {% endif %}
+        {% endfor %}
+        <input type="hidden" name="user_id" value="{{ user.uuid }}">
+      <input type="submit" value="記事編集" class="btn btn-secondary">
+</form>
+<div class="btn-field">
+<a href="{% url 'article:category_post' %}" class="btn btn-primary">カテゴリ登録</a>
+<a href="{% url 'article:index' %}" class="btn btn-primary">記事管理画面</a>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+var simplemde = new SimpleMDE({
+  element: document.getElementById("text-area"),
+  forceSync: true
+});
+</script>
+{% endblock %}

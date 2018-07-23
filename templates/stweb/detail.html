@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-8">
+    <div class="article_wrap">
+      <div class="category-link">
+        <a href="{% url 'stweb:category_detail' pk=object.category_id %}">{{ object.category.name }}</a>
+        <span class="create_day">投稿日：{{ object.created_at }}</span>
+        {% if object.updated_at == object.created_at %}
+        {% else %}
+        <span class="create_day">追記日：{{ object.updated_at }}</span>
+        {% endif %}
+      </div>
+      <ul class="article-ul">
+        <li class="article_title">{{ object.title }}</li>
+        <li>{{ object.get_text_as_markdown }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="offset-sm-1 col-sm-3 text-center">
+    <div class="index-wrap bg-yellow">
+      <p class="index_title"><span class="title_font">カテゴリ一覧</span></p>
+      <div class="category-link">
+        {% for categories in more_context %}
+        <ul>
+          <li><a href="{% url 'article:category_detail' pk=categories.id %}">{{ categories.name }}：{{ categories.article_count_publick }}件</a></li>
+        </ul>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="btn-field">
+  <a href="{% url 'stweb:index' %}" class="btn btn-info">TOPへ戻る</a>
+</div>
+{% endblock %}

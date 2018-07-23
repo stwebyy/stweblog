@@ -5,20 +5,63 @@
 <meta charset="utf-8">
 <title>stweBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst"></script>
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/atom-one-dark.css' %}"> -->
 <!--[if lt IE 9]>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 <![endif]-->
 </head>
 <body class="d-flex flex-column">
-<nav class="nav nav-blue">
-  <a class="nav-link" href="/user/index">Home</a>
-  <a class="nav-link" href="#">User</a>
+<nav class="navbar navbar-expand-md nav-blue mb20">
+  <div class="collapse navbar-collapse" id="Navber">
+    <ul class="navbar-nav mr-auto">
+      <li><a class="nav-item active nav-link" href="/stweb/top">Home</a><span class="sr-only">(現位置)</span></li>
+  {% if user.is_authenticated %}
+  <li><a class="nav-item nav-link" href="{% url 'user:index' %}">User</a></li>
+  <li><a class="nav-item nav-link" href="{% url 'article:index' %}">Article</a></li>
+  {% endif %}
+</ul>
+  {% if user.is_authenticated %}
+  <ul class="navbar-nav">
+    <li class="rogin-check">ログイン中：</li>
+    <li class="dropdown nav-item">
+       <a class="btn btn-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{ user.username }}
+       </a>
+       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'article:index' %}">記事管理画面</a>
+          <a class="dropdown-item" href="{% url 'user:profile' uuid=user.uuid %}">プロフィール変更</a>
+          <a class="dropdown-item" href="{% url 'user:logout' %}">ログアウト</a>
+      </div>
+    </li>
+  </ul>
+  {% else %}
+  <ul class="navbar-nav">
+    <li class="dropdown nav-item">
+       <a class="btn btn-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         会員登録・ログイン
+       </a>
+       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'user:register' %}">会員登録</a>
+          <a class="dropdown-item" href="{% url 'user:login' %}">ログイン</a>
+      </div>
+    </li>
+  </ul>
+  {% endif %}
+</div>
 </nav>
 <div class="container">
   <div class="row">
     <div class="col-12">
+      <div class="page-top">
+        <h2 class="mb20"><a href="/stweb/top">stweBlog</a></h2>
+        <p>プログラミング歴約半年。WEB制作の現場で勤める傍ら、Ruby on Rails、Djangoを少し触る。<br />
+        現在はHTML、Djangoを中心に勉強中。わかりやすい説明を目指していきたいサイト。</p>
+      </div>
       {% for message in messages %}
       <ul class="alert alert-primary">
         <li>{{ message }}</li>
@@ -26,26 +69,28 @@
       {% endfor %}
     {% block content %}
     {% endblock %}
-    {% if user.is_authenticated %}
-    <ul class="btn-wrap">
-    <li><a href="{% url 'user:profile' uuid=user.uuid %}" class="link-btn">ユーザー編集</a></li>
-    <li><a href="{% url 'user:logout' %}" class="link-btn">ログアウト</a></li>
-    <li><a href="{% url 'user:index' %}" class="link-btn">ホーム画面</a></li>
-    {% else %}
-    {% endif %}
     </div>
     </div>
   </div>
-</div>
-<footer class="mb-auto">
+<footer class="mb-auto mt50">
   <div class="text-center">
     <span class="copyright">@2018 Copyright stweb All Rights Reserved.</span>
   </div>
 </footer>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+$(document).ready(function() {
+          $("code").wrap("<pre class='prettyprint'></pre>");
+      });
+</script>
+<!-- <script src="{% static 'js/highlight.pack.js' %}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.1.0/highlightjs-line-numbers.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>hljs.initLineNumbersOnLoad();</script> -->
+
 {% block extra_script %}
 {% endblock %}
 </body>

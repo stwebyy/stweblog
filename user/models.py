@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 import uuid as uuid_lib
 
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     uuid = models.UUIDField(default=uuid_lib.uuid4,
                             primary_key=True, editable=False)
@@ -55,3 +56,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def __str__(self):
+        return self.name

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="page-top">
+  <h4 class="text-center mb40">記事一覧画面</h4>
+</div>
+<div class="row">
+  <div class="col-sm-12 text-center">
+    <div class="index-wrap">
+      {% for field in article_list %}
+      <ul>
+        <li><a href="{% url 'stweb:detail' pk=field.id %}">{{ field.title }}　<span class="font-small">{{field.created_at|date:"Y年n月j日"}}</span></a></li>
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="btn-field">
+  <a href="{% url 'stweb:index' %}" class="btn btn-primary">TOPへ戻る</a>
+</div>
+{% endblock %}
