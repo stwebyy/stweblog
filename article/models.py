@@ -18,12 +18,16 @@ class Tag(models.Model):
         article = Article.objects.filter(tag=self)
         return article
 
+    def article_find_publick(self):
+        article = Article.objects.filter(tag=self, publick=1)
+        return article
+
     def tag_count(self):
         count = Article.objects.filter(tag=self).count()
         return count
 
     def tag_count_publick(self):
-        count = Article.objects.filter(tag=self).count()
+        count = Article.objects.filter(tag=self, publick=1).count()
         return count
 
     def __str__(self):
@@ -59,7 +63,7 @@ class Article(models.Model):
     category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(Tag, blank=True, verbose_name='タグ')
     thumnail = models.ImageField(
-        'サムネイル', upload_to='post_thumbnail/%Y/%m/%d/', blank=True, null=True)
+        'サムネイル', upload_to='image/', blank=True, null=True)
     created_at = models.DateField('作成日', default=timezone.now)
     updated_at = models.DateField(auto_now=True)
     publick = models.BooleanField('公開・非公開（チェックすると公開します）', default=True)
@@ -68,7 +72,7 @@ class Article(models.Model):
         return mark_safe(markdown(self.text, safe_mode='escape'))
 
     def user_find(self):
-        find = User.objects.filter(uuid=self.user_id).values('username')
+        find = User.objects.get(uuid=self.user_id)
         return find
 
     def category_find(self):
@@ -79,6 +83,18 @@ class Article(models.Model):
         s = Tag.objects.filter(article=self)
         return s
 
+    def save_and_rename(self, url, name=None):
+        res = requests.get(url)
+        if res.status_code != 200:
+            return "No Image"
+        path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/media/image/"
+        if name==None:
+            path += url.split("/")[-1]
+        else:
+            path += name
+        with open(path, 'wb') as file:
+            file.write(res.content)
+        return path
 
     def __str__(self):
         return self.title

@@ -1,0 +1,10 @@
+  <div class="">
+    <p class=""><span class="font-bold">タグ一覧</span></p>
+    <div class="categories">
+      {% for tags in more_tags %}
+      <ul>
+        <li><a href="{% url 'stweb:tag_detail' pk=tags.id %}">{{ tags }}：{{ tags.tag_count_publick }}件</a></li>
+      </ul>
+      {% endfor %}
+    </div>
+  </div>

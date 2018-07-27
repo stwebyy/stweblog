@@ -4,8 +4,8 @@
 <div class="row">
   <div class="col-sm-9">
 <div class="index-wrap">
-  <p class="text-center index_title">＜<span class="font-bold">{{ object.name }}</span>＞の記事一覧</p>
-  {% for field in article_list %}
+  <p class="text-center index_title">＜<span class="font-bold">{{ object }}</span>＞の記事一覧</p>
+  {% for field in article_list.article_find_publick %}
   <article class="">
     <div class="category-link">
       <span class="font-small">投稿日:{{field.created_at|date:"Y年n月j日"}}　

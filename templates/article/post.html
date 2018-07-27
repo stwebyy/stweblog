@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <h4 class="text-center">記事投稿</h4>
-<form action="" method="post" class="form">
+<form action="" method="post" class="form" enctype="multipart/form-data">
   {% csrf_token %}
 {{ formset.management_form }}
         {% if form.non_field_errors %}

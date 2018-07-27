@@ -2,67 +2,43 @@
 {% load static %}
 {% block content %}
 <div class="row">
-  <div class="col-sm-8 text-center">
+  <div class="col-sm-9">
     <div class="index-wrap">
-      <p class="index_title"><span class="title_font"><a href="{% url 'stweb:list' %}">投稿記事一覧:{{ count }}件</a></span></p>
-      <p class="mt16">（最新5件の表示）</p>
-      {% for field in article_list %}
-      <ul>
-        <li><a href="{% url 'stweb:detail' pk=field.id %}">{{ field.title }}　<span class="font-small">{{ field.created_at|date:"Y年n月j日" }}</span></a></li>
-      </ul>
-      {% endfor %}
-    </div>
-    <nav aria-label="Page navigation">
-  <ul class="pagination">
-
-      {% if page_obj.has_previous %}
-        <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      {% endif %}
-
-      {% for link_page in page_obj.paginator.page_range %}
-        {% if link_page == page_obj.number %}
-          <li class="page-item active">
-            <a class="page-link" href="?page={{ link_page }}">
-              {{ link_page }}
-            </a>
-          </li>
+      <p class="index_title"><span class="title_font">投稿記事:{{ count }}件</span></p>
+      {% for field in object_list %}
+      <article class="">
+        <div class="category-link">
+          <span class="font-small">投稿日:{{field.created_at|date:"Y年n月j日"}}　
+            カテゴリ：<a href="{% url 'stweb:category_detail' pk=field.category_id %}" class="link-view">{{ field.category_find }}</a>
+            　タグ：{% for tags in field.tag_find %}
+                    <a href="{% url 'stweb:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
+                  {% endfor %}
+              　<span class="text-right">ユーザー：{{ field.user_find }}</span>
+        </span>
+        </div>
+        <h2><a href="{% url 'stweb:detail' pk=field.id %}">{{ field.title }}</a></h2>
+        {% if field.thumnail %}
+        <div class="index-thumnail">
+          <img class="img-responsive" src="/media/{{ field.thumnail }}">
+        </div>
         {% else %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ link_page }}">
-              {{ link_page }}
-            </a>
-          </li>
         {% endif %}
-      {% endfor %}
 
-      {% if page_obj.has_next %}
-        <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-      {% endif %}
-
-  </ul>
-</nav>
-
-  </div>
-  <div class="offset-sm-1 col-sm-3 text-center">
-    <div class="index-wrap bg-yellow">
-      <p class="index_title"><span class="title_font">カテゴリ一覧</span></p>
-      <div class="category-link">
-        {{ more}}
-      {% for categories in more_context %}
-      <ul>
-        <li><a href="{% url 'stweb:category_detail' pk=categories.id %}">{{ categories.name }}：{{ categories.article_count_publick }}件</a></li>
-      </ul>
+        <div class="discript">
+        <span class="index_descript">概要</span>
+          <span class="">{{ field.discript }}</span>
+        </div>
+        <div class="mt20">
+        <a href="{% url 'stweb:detail' pk=field.id %}" class="extra-link">>>続きを読む</a>
+      </div>
+      </article>
       {% endfor %}
     </div>
+    {% include 'pagenation.html' %}
   </div>
-  </div>
+  <div class="col-sm-3 text-center">
+    {% include 'category_list_publick.html' %}
+    {% include 'tag_list_publick.html' %}
+</div>
 </div>
 {% endblock %}

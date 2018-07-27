@@ -398,3 +398,31 @@ blockquote {
   padding-right: 0;
   margin: 1.5em 0;
 }
+
+.contact-footer {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.contact-footer p {
+  margin-bottom: 5px;
+}
+
+.contact-footer a {
+  color: #fff!important;
+  font-size: 12px;
+  transition: 0.7s;
+}
+
+.contact-footer a:hover {
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.index-thumnail {
+  width: 50%;
+}
+
+.img-responsive {
+  max-width: 100%;
+}

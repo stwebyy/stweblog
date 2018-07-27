@@ -147,3 +147,12 @@ LOGOUT_REDIRECT_URL = '/user/index/'
 AUTH_USER_MODEL = 'user.User'
 
 MESSAGE_STORSGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'stweb.yy@gmail.com'
+EMAIL_HOST_PASSWORD = 'epcprlpmjgturltq'
+EMAIL_USE_TLS = True
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

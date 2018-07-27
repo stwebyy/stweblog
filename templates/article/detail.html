@@ -20,6 +20,10 @@
       </div>
         <div class="article_title">{{ object.title }}</div>
         <div class="article_discript">{{ object.discript }}</div>
+        {% if object.thumnail %}
+        <img class="img-responsive" src="/media/{{ object.thumnail }}">
+        {% else %}
+        {% endif %}
         <div id="a"></div>
         <div id="mk-text" class="article_text">{{ object.get_text_as_markdown }}</div>
     </div>

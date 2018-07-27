@@ -1,37 +1,43 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
 <div class="row">
-  <div class="col-sm-8">
-    <div class="article_wrap">
+  <div class="col-sm-9">
+    <div class="article_detail_wrap">
       <div class="category-link">
-        <a href="{% url 'stweb:category_detail' pk=object.category_id %}">{{ object.category.name }}</a>
-        <span class="create_day">投稿日：{{ object.created_at }}</span>
         {% if object.updated_at == object.created_at %}
+        <span class="font-small">投稿日:{{object.created_at|date:"Y年n月j日"}}</span>
         {% else %}
-        <span class="create_day">追記日：{{ object.updated_at }}</span>
+        <span class="font-small">投稿日:{{object.created_at|date:"Y年n月j日"}}</span>
+        　<span class="font-small">追記日：{{ object.updated_at }}</span>
         {% endif %}
-      </div>
-      <ul class="article-ul">
-        <li class="article_title">{{ object.title }}</li>
-        <li>{{ object.get_text_as_markdown }}</li>
-      </ul>
-    </div>
-  </div>
-  <div class="offset-sm-1 col-sm-3 text-center">
-    <div class="index-wrap bg-yellow">
-      <p class="index_title"><span class="title_font">カテゴリ一覧</span></p>
-      <div class="category-link">
-        {% for categories in more_context %}
-        <ul>
-          <li><a href="{% url 'article:category_detail' pk=categories.id %}">{{ categories.name }}：{{ categories.article_count_publick }}件</a></li>
-        </ul>
+        　<span class="font-small">カテゴリ：<a href="{% url 'stweb:category_detail' pk=object.category_id %}" class="link-view">{{ object.category_find }}</a>　タグ：
+        {% for tags in object.tag_find %}
+          <a href="{% url 'stweb:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
         {% endfor %}
+        　<span class="text-right">ユーザー：{{ object.user_find }}</span>
+      </span>
       </div>
+        <div class="article_title">{{ object.title }}</div>
+        <div class="article_discript">{{ object.discript }}</div>
+        {% if object.thumnail %}
+        <img class="img-responsive" src="/media/{{ object.thumnail }}">
+        {% else %}
+        {% endif %}
+        <div id="a"></div>
+        <div id="mk-text" class="article_text">{{ object.get_text_as_markdown }}</div>
     </div>
   </div>
+  <div class="col-sm-3 text-center">
+  {% include 'category_list_publick.html' %}
+  {% include 'tag_list_publick.html' %}
 </div>
-<div class="btn-field">
-  <a href="{% url 'stweb:index' %}" class="btn btn-info">TOPへ戻る</a>
 </div>
+{% endblock %}
+{% block extra_script %}
+<script>
+document.getElementById("mk-text").innerHTML = marked(document.getElementById("mk-text").innerHTML);
+</script>
+<script src="https://cdn.rawgit.com/chjj/marked/master/marked.min.js"></script>
 {% endblock %}

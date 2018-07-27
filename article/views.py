@@ -3,7 +3,8 @@ import logging
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView, TemplateView
+from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
@@ -14,7 +15,7 @@ from django.core.paginator import EmptyPage, InvalidPage
 from django.core.paginator import PageNotAnInteger
 from pure_pagination.mixins import PaginationMixin
 
-from .forms import PostForm, CategoryForm, EditForm, TagForm, TagSelectForm, TagInlineFormSet
+from .forms import PostForm, CategoryForm, EditForm, TagForm, TagSelectForm, TagInlineFormSet, ContactForm
 
 from .models import Category, Article, Tag
 from user.models import User
@@ -230,3 +231,14 @@ class TagDeleteView(LoginRequiredMixin, DeleteView):
         return result
 
 tag_delete = TagDeleteView.as_view()
+
+class ContactView(FormView):
+    template_name = 'article/contact.html'
+    form_class = ContactForm
+    success_url = "index"
+
+    def form_valid(self, form):
+        form.send_email()
+        return super(ContactView, self).form_valid(form)
+
+contact = ContactView.as_view()
