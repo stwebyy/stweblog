@@ -83,8 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stweblog',
-        'USER': 'root',
-        'password': '',
+        'USER': 'bd3535e316ff8d',
+        'password': '0450d6ed',
+        'host': 'us-cdbr-iron-east-04.cleardb.net'
     }
 }
 
