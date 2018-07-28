@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stweblog',
+        'NAME': 'heroku_e821993f616c824',
         'USER': 'bd3535e316ff8d',
         'password': '0450d6ed',
         'host': 'us-cdbr-iron-east-04.cleardb.net'
