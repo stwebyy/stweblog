@@ -159,7 +159,7 @@ EMAIL_USE_TLS = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
- import dj_database_url
+import dj_database_url
     db_from_env = dj_database_url.config()
     DATABASES = {
         'default': dj_database_url.config()
