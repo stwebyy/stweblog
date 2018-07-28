@@ -24,7 +24,7 @@ PROJECT_NAME = os.path.basename(BASE_DIR)
 SECRET_KEY = 'fv=&u(7ev#nt1b4xq5$@-pje^zme1grfuk629zm^u9ja^!i!dq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -136,6 +136,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
+
 LOGIN_ERROR_URL = '/user/login/'
 
 LOGIN_URL = '/user/login/'
@@ -156,3 +157,8 @@ EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
