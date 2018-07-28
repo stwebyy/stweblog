@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_e821993f616c824',
-        'USER': 'bd3535e316ff8d',
-        'PASSWORD': '0450d6ed',
+        'NAME': 'heroku_fc1626cebfce0fd',
+        'USER': 'b5d79aec9e392e',
+        'PASSWORD': 'ce3142ea',
         'HOST': 'us-cdbr-iron-east-04.cleardb.net',
     }
 }
@@ -158,10 +158,3 @@ EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-import dj_database_url
-
-db_from_env = dj_database_url.config()
-DATABASES = {
-    'default': dj_database_url.config()
-}
