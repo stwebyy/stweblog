@@ -235,7 +235,7 @@ tag_delete = TagDeleteView.as_view()
 class ContactView(FormView):
     template_name = 'article/contact.html'
     form_class = ContactForm
-    success_url = "index"
+    success_url = "/stweb/top/"
 
     def form_valid(self, form):
         form.send_email()
