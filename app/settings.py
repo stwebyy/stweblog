@@ -11,11 +11,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_NAME = os.path.basename(BASE_DIR)
 
+env = environ.Env(DEBUG=(bool, False),)
+environ.Env.read_env('.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -80,13 +83,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_fc1626cebfce0fd',
-        'USER': 'b5d79aec9e392e',
-        'PASSWORD': 'ce3142ea',
-        'HOST': 'us-cdbr-iron-east-04.cleardb.net',
-    }
+    'default': env.db()
 }
 
 
@@ -158,8 +155,3 @@ EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
