@@ -19,7 +19,7 @@
 <nav class="navbar navbar-expand-md nav-blue mb20">
   <div class="collapse navbar-collapse" id="Navber">
     <ul class="navbar-nav mr-auto">
-      <li><a class="nav-item active nav-link" href="/stweb/top">Home</a><span class="sr-only">(現位置)</span></li>
+      <li><a class="nav-item active nav-link" href="/">Home</a><span class="sr-only">(現位置)</span></li>
   {% if user.is_authenticated %}
   <li><a class="nav-item nav-link" href="{% url 'user:index' %}">User</a></li>
   <li><a class="nav-item nav-link" href="{% url 'article:index' %}">Article</a></li>
@@ -58,7 +58,7 @@
   <div class="row">
     <div class="col-12">
       <div class="page-top">
-        <h2 class="mb20"><a href="/stweb/top">stweBlog</a></h2>
+        <h2 class="mb20"><a href="/">stweBlog</a></h2>
         <p>プログラミング歴約半年。WEB制作の現場で勤める傍ら、Ruby on Rails、Djangoを少し触る。<br />
         現在はHTML、Djangoを中心に勉強中。わかりやすい説明を目指していきたいサイト。</p>
       </div>
