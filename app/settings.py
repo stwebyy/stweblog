@@ -83,7 +83,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db()
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stweblog',
+        'USER': 'stweb',
+        'PASSWORD': 'youya1848',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
 }
 
 
