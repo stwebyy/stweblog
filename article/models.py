@@ -64,8 +64,8 @@ class Article(models.Model):
     tag = models.ManyToManyField(Tag, blank=True, verbose_name='タグ')
     thumnail = models.ImageField(
         'サムネイル', upload_to='image/', blank=True, null=True)
-    created_at = models.DateField('作成日', default=timezone.now)
-    updated_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField('作成日', default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
     publick = models.BooleanField('公開・非公開（チェックすると公開します）', default=True)
 
     def get_text_as_markdown(self):
