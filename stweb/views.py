@@ -56,6 +56,7 @@ class CategoryDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article_list'] = Article.objects.filter(category_id=self.object.id, publick=1).order_by('id')
+        context['more_context'] = Category.objects.all()
         context['more_tags'] = Tag.objects.all()
         return context
 
@@ -68,6 +69,7 @@ class TagDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['article_list'] = Tag.objects.get(id=self.object.id)
+        context['more_context'] = Category.objects.all()
         context['more_tags'] = Tag.objects.all()
         return context
 
