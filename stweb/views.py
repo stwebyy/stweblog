@@ -15,7 +15,7 @@ class IndexView(PaginationMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        contact_list = Article.objects.filter(publick=1).order_by('-created_at')
+        contact_list = Article.objects.filter(publick=1).order_by('created_at')
         paginator = Paginator(contact_list, 5)
         try:
             page = int(self.request.GET.get('page'))
