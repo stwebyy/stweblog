@@ -13,7 +13,7 @@
             　タグ：{% for tags in field.tag_find %}
                     <a href="{% url 'stweb:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
                   {% endfor %}
-              　<span class="text-right">ユーザー：{{ field.user_find }}</span>
+              　<!-- <span class="text-right">ユーザー：{{ field.user_find }}</span> -->
         </span>
         </div>
         <h2><a href="{% url 'stweb:detail' pk=field.id %}">{{ field.title }}</a></h2>

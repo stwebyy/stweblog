@@ -16,7 +16,7 @@
         {% for tags in object.tag_find %}
           <a href="{% url 'stweb:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
         {% endfor %}
-        　<span class="text-right">ユーザー：{{ object.user_find }}</span>
+        　<!-- <span class="text-right">ユーザー：{{ object.user_find }}</span> -->
       </span>
       </div>
         <div class="article_title">{{ object.title }}</div>
