@@ -1,11 +1,14 @@
 from django.test import TestCase, Client
 from django.urls import resolve, reverse
 from django.shortcuts import redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.template.loader import render_to_string
 from .models import User
 from .views import IndexView, LoginView, LogoutView, RegisterView, ProfileView
 from .urls import *
+from .forms import RegisterForm
+from django.contrib.auth import login as auth_login, logout as auth_logout
+
 import uuid
 
 
@@ -16,7 +19,7 @@ class Usermodel_assert(TestCase):
         self.assertEqual(first_user.password, password)
 
 
-class Users_test(Usermodel_assert):
+class Usermodel_test(Usermodel_assert):
     def test_empty_usermodel(self):
         users = User.objects.all()
         self.assertEqual(users.count(), 0)
@@ -79,6 +82,14 @@ class Resolve_urls(TestCase):
 
 
 class Html_tests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        s = User.objects.create_user(
+        username = 'test',
+        email = 'test@test.com',
+        password = '1111',
+        )
+
     def test_index(self):
         response = Client().get(reverse('user:index'))
         print(response)
@@ -89,17 +100,39 @@ class Html_tests(TestCase):
         print(response)
         self.assertEqual(response.status_code, 200)
 
-    def test_logout(self):
+    def test_logout_before_login(self):
         response = Client().get(reverse('user:logout'))
         print(response)
         self.assertEqual(response.status_code, 302)
+
+    def test_logout_after_login(self):
+        # user = User(
+        # username = 'test',
+        # email = 'test@test.com',
+        # password = '1111'
+        # )
+        # user.save()
+        # s = User.objects.create_user(
+        # username = 'test',
+        # email = 'test@test.com',
+        # password = '1111',
+        # )
+        c = self.client
+        c.login(username='test', password='1111')
+        uuid = User([0]).uuid
+        url = '/user/profile/%s/' % uuid
+        res = c.get(url)
+        self.assertEqual(res.status_code, 200)
+        logout = c.get(reverse('user:logout'))
+        resp = c.get(url)
+        self.assertEqual(resp.status_code, 302)
 
     def test_register(self):
         response = Client().get(reverse('user:register'))
         print(response)
         self.assertEqual(response.status_code, 200)
 
-    def test_profile(self):
+    def test_profile_before_login(self):
         user = User()
         user.save()
         uuid = user.uuid
@@ -107,3 +140,48 @@ class Html_tests(TestCase):
         print(url)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 302)
+
+    def test_profile_after_login(self):
+        # user = User(
+        # username = 'test',
+        # email = 'test@test.com',
+        # password = '1111'
+        # )
+        # user.save()
+        # s = User.objects.create_user(
+        # username = 'test',
+        # email = 'test@test.com',
+        # password = '1111',
+        # )
+        # c = Client()
+        # p = c.post('/user/login/',{'username':'test','password':'1111'})
+        # print(p.status_code)
+        c = self.client
+        c.login(username='test', password='1111')
+        uuid = User([0]).uuid
+        url = '/user/profile/%s/' % uuid
+        response = c.get(url)
+        print(url)
+        self.assertEqual(response.status_code, 200)
+
+
+class Register_form_test(TestCase):
+    def test_form_valid(self):
+        params = dict(username='test', email="test@test.com", password="1111", password2="1111")
+        form = RegisterForm(params)
+        self.assertTrue(form.is_valid())
+
+    def test_form_not_valid_username(self):
+        params = dict(username='', email="test@test.com", password="1111", password2="1111")
+        form = RegisterForm(params)
+        self.assertFalse(form.is_valid())
+
+    def test_form_not_valid_email(self):
+        params = dict(username='test', email="", password="1111", password2="1111")
+        form = RegisterForm(params)
+        self.assertFalse(form.is_valid())
+
+    def test_form_not_valid_password(self):
+        params = dict(username='', email="test@test.com", password="1234", password2="1111")
+        form = RegisterForm(params)
+        self.assertFalse(form.is_valid())
