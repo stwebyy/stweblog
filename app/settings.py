@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'static',
     'stweb',
     'pure_pagination',
+    'test_list',
 ]
 
 MIDDLEWARE = [
