@@ -74,14 +74,12 @@ class Resolve_urls(TestCase):
         user = User()
         user.save()
         uuid = user.uuid
-        print(uuid)
         url = '/user/profile/%s/' % uuid
-        print(url)
         found = resolve(url)
         self.assertEqual(found.func.view_class, ProfileView)
 
 
-class Html_tests(TestCase):
+class Views_tests(TestCase):
     @classmethod
     def setUpTestData(cls):
         s = User.objects.create_user(
@@ -90,33 +88,41 @@ class Html_tests(TestCase):
         password = '1111',
         )
 
-    def test_index(self):
+    def test_index_before_login(self):
         response = Client().get(reverse('user:index'))
-        print(response)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'not_login')
+
+    def test_index_after_login(self):
+        c = self.client
+        c.login(username='test', password='1111')
+        response = c.get(reverse('user:index'))
+        self.assertQuerysetEqual(response.context['more_context'],[])
+        self.assertEqual(response.context['count'], 0)
 
     def test_login(self):
         response = Client().get(reverse('user:login'))
-        print(response)
         self.assertEqual(response.status_code, 200)
+        c = self.client
+        miss_user = {
+        'username' : 'uuuu',
+        'password' : '0123456'
+        }
+        miss_response = c.post(reverse('user:login'), miss_user)
+        self.assertEqual(miss_response.status_code, 200)
+        self.assertContains(miss_response, 'alert-primary')
+        login_user = {
+        'username' : 'test',
+        'password' : '1111'
+        }
+        response = c.post(reverse('user:login'), login_user)
+        self.assertEqual(response.status_code, 302)
 
     def test_logout_before_login(self):
         response = Client().get(reverse('user:logout'))
-        print(response)
         self.assertEqual(response.status_code, 302)
 
     def test_logout_after_login(self):
-        # user = User(
-        # username = 'test',
-        # email = 'test@test.com',
-        # password = '1111'
-        # )
-        # user.save()
-        # s = User.objects.create_user(
-        # username = 'test',
-        # email = 'test@test.com',
-        # password = '1111',
-        # )
         c = self.client
         c.login(username='test', password='1111')
         uuid = User([0]).uuid
@@ -129,39 +135,40 @@ class Html_tests(TestCase):
 
     def test_register(self):
         response = Client().get(reverse('user:register'))
-        print(response)
         self.assertEqual(response.status_code, 200)
+        c = self.client
+        miss_data = {
+        'username' : 'testname',
+        'email' : 'testname@test.com',
+        'password' : '1234',
+        'password2': '112345678',
+        }
+        response = c.post(reverse('user:register'), miss_data)
+        self.assertEqual(response.status_code, 200)
+        data = {
+        'username' : 'testname',
+        'email' : 'testname@test.com',
+        'password' : '1234',
+        'password2': '1234',
+        }
+        response = c.post(reverse('user:register'), data)
+        self.assertEqual(response.status_code, 302)
+
 
     def test_profile_before_login(self):
         user = User()
         user.save()
         uuid = user.uuid
         url = '/user/profile/%s/' % uuid
-        print(url)
         response = self.client.get(url)
         self.assertEqual(response.status_code, 302)
 
     def test_profile_after_login(self):
-        # user = User(
-        # username = 'test',
-        # email = 'test@test.com',
-        # password = '1111'
-        # )
-        # user.save()
-        # s = User.objects.create_user(
-        # username = 'test',
-        # email = 'test@test.com',
-        # password = '1111',
-        # )
-        # c = Client()
-        # p = c.post('/user/login/',{'username':'test','password':'1111'})
-        # print(p.status_code)
         c = self.client
         c.login(username='test', password='1111')
         uuid = User([0]).uuid
         url = '/user/profile/%s/' % uuid
         response = c.get(url)
-        print(url)
         self.assertEqual(response.status_code, 200)
 
 
