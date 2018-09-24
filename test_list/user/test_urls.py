@@ -4,7 +4,7 @@ from user.models import User
 from user.views import IndexView, LoginView, LogoutView, RegisterView, ProfileView
 
 
-class Resolve_urls(TestCase):
+class Test_urls(TestCase):
     def test_url_index(self):
         found = resolve('/user/index/')
         self.assertEqual(found.func.view_class, IndexView)

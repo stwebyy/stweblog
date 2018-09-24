@@ -2,14 +2,14 @@ from django.test import TestCase, Client
 from user.models import User
 
 
-class Usermodel_assert(TestCase):
+class Test_model_assert(TestCase):
     def usermodel_assert(self, first_user, name, email, password):
         self.assertEqual(first_user.username, name)
         self.assertEqual(first_user.email, email)
         self.assertEqual(first_user.password, password)
 
 
-class Usermodel_test(Usermodel_assert):
+class Test_model(Test_model_assert):
     def test_empty_usermodel(self):
         users = User.objects.all()
         self.assertEqual(users.count(), 0)

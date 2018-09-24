@@ -6,7 +6,7 @@ from user.views import IndexView, LoginView, LogoutView, RegisterView, ProfileVi
 import uuid
 
 
-class Views_tests(TestCase):
+class Test_views(TestCase):
     @classmethod
     def setUpTestData(cls):
         s = User.objects.create_user(

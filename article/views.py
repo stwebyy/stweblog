@@ -90,7 +90,7 @@ class PostView(LoginRequiredMixin, CreateView):
 post = PostView.as_view()
 
 
-class EditView(UpdateView):
+class EditView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = EditForm
     template_name = "article/edit.html"
