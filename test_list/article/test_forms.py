@@ -122,3 +122,13 @@ class Test_PostForm(TestCase):
         params = dict(name='test', message="")
         form = ContactForm(params)
         self.assertFalse(form.is_valid())
+
+    def test_tagselectform_valid(self):
+        params = dict(tag=1)
+        form = TagSelectForm(params)
+        self.assertTrue(form.is_valid())
+
+    def test_tagselectform_notvalid(self):
+        params = dict(tag=3)
+        form = TagSelectForm(params)
+        self.assertFalse(form.is_valid())

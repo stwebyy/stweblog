@@ -96,3 +96,11 @@ class Test_views(TestCase):
         url = '/user/profile/%s/' % uuid
         response = c.get(url)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, User(username=('test')).username)
+        data = {
+        'username' : 'edit',
+        'email' : 'edit@edit.com',
+        'uuid' : uuid,
+        }
+        response2 = c.post(url, data=data)
+        self.assertEqual(response2.status_code, 302)
