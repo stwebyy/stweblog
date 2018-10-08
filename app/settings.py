@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'static',
     'stweb',
     'pure_pagination',
+    'test_list',
 ]
 
 MIDDLEWARE = [
@@ -86,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stweblog',
-        'USER': 'stweb',
-        'PASSWORD': 'youya1848',
+        'USER': '',
+        # 'PASSWORD': 'youya1848',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

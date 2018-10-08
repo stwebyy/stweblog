@@ -90,7 +90,7 @@ class PostView(LoginRequiredMixin, CreateView):
 post = PostView.as_view()
 
 
-class EditView(UpdateView):
+class EditView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = EditForm
     template_name = "article/edit.html"
@@ -235,7 +235,7 @@ tag_delete = TagDeleteView.as_view()
 class ContactView(FormView):
     template_name = 'article/contact.html'
     form_class = ContactForm
-    success_url = "/stweb/top/"
+    success_url = "/"
 
     def form_valid(self, form):
         form.send_email()
