@@ -1,32 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
+{% load martortags %}
+
+{% block pankuzu %}
+<div class="container">
+<div class="article-detail-pan">
+<a href="/">Home</a> > <a href="{% url 'stweb:category_detail' pk=object.category_id %}">{{ object.category_find }}</a> > <span>{{ object.title }}</span>
+</div>
+</div>
+{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col-sm-9">
-    <div class="article_detail_wrap">
-      <div class="category-link">
+    <div class="article-detail-wrap">
+      <div class="article-deatil-link">
         {% if object.updated_at == object.created_at %}
         <span class="font-small">投稿日:{{object.created_at|date:"Y年n月j日"}}</span>
         {% else %}
         <span class="font-small">投稿日:{{object.created_at|date:"Y年n月j日"}}</span>
         　<span class="font-small">追記日：{{ object.updated_at }}</span>
         {% endif %}
-        　<span class="font-small">カテゴリ：<a href="{% url 'stweb:category_detail' pk=object.category_id %}" class="link-view">{{ object.category_find }}</a>　タグ：
+        　<br /><span class="font-small">カテゴリ：<a href="{% url 'stweb:category_detail' pk=object.category_id %}" class="link-view">{{ object.category_find }}</a>　タグ：
         {% for tags in object.tag_find %}
           <a href="{% url 'stweb:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
         {% endfor %}
-        　<!-- <span class="text-right">ユーザー：{{ object.user_find }}</span> -->
       </span>
       </div>
-        <div class="article_title">{{ object.title }}</div>
-        <div class="article_discript">{{ object.discript }}</div>
+        <div class="article-detail-title">{{ object.title }}</div>
+        <div class="article-detail-discript">{{ object.discript }}</div>
         {% if object.thumnail %}
         <img class="img-responsive" src="/media/{{ object.thumnail }}">
         {% else %}
         {% endif %}
         <div id="a"></div>
-        <div id="mk-text" class="article_text">{{ object.get_text_as_markdown }}</div>
+        <div id="mk-text" class="article-detail-text">{{ object.text|safe_markdown }}</div>
     </div>
   </div>
   <div class="col-sm-3 text-center">
@@ -36,8 +44,12 @@
 </div>
 {% endblock %}
 {% block extra_script %}
+<script type="text/javascript" src="{% static 'plugins/js/semantic.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
 <script>
-document.getElementById("mk-text").innerHTML = marked(document.getElementById("mk-text").innerHTML);
-</script>
-<script src="https://cdn.rawgit.com/chjj/marked/master/marked.min.js"></script>
+    $('pre').each(function(i, block){
+        hljs.highlightBlock(block);
+    });
+    $('.ui.dropdown').dropdown();
+  </script>
 {% endblock %}

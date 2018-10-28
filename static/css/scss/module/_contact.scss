@@ -1,0 +1,24 @@
+.contact-form {
+  width: 60%;
+}
+
+.contact-form-text {
+  width: 80%;
+}
+
+.contact-btn {
+  display: inline-block;
+  color: #fff;
+  background: #444;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 20px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  @include transration;
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}

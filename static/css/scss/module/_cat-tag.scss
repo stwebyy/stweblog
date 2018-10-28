@@ -1,0 +1,15 @@
+.categories ul li {
+  border-bottom: 1px #ddd solid;
+  transition: 0.7s;
+  font-size: 13px;
+}
+
+.categories ul li:hover {
+  opacity: 0.5;
+  background: #ddd;
+}
+
+.categories a:hover {
+text-decoration: none;
+color: #a59562;
+}

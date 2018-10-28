@@ -8,4 +8,6 @@ urlpatterns = [
     path('detail/<int:pk>', views.detail, name='detail'),
     path('category_detail/<int:pk>', views.category_detail, name='category_detail'),
     path('tag_detail/<int:pk>', views.tag_detail, name='tag_detail'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
 ]

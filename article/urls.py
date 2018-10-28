@@ -15,5 +15,4 @@ urlpatterns = [
     path('tag_detail/<int:pk>', views.tag_detail, name='tag_detail'),
     path('tag/post', views.tag_post, name='tag_post'),
     path('tag/delete/<int:pk>', views.tag_delete, name='tag_delete'),
-    path('contact/', views.contact, name='contact'),
 ]

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="l-contact contact">
+<h4>stwebにメール</h4>
+<p>ご意見やお問い合わせはこちらから</p>
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% for field in form %}
+      <ul>
+        <li>{{ field.label }}</li>
+        <li>{{ field }}</li>
+      </ul>
+      {% endfor %}
+<input type="submit" value="管理者にメール" class="contact-btn">
+</form>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+var simplemde = new SimpleMDE({
+  element: document.getElementById("text-area"),
+  autofocus: true,
+  forceSync: true,
+  placeholder: "本文",
+});
+</script>
+{% endblock %}

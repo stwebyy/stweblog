@@ -1,0 +1,40 @@
+.nav-blue {
+  background: #0b1375;
+}
+
+.nav-sitename {
+  font-size: 18px;
+  color: #fff;
+}
+
+.nav-link {
+  color: #fff;
+  @include transration;
+  padding: 15px 20px;
+  border: none;
+  border-radius: .25rem;
+}
+
+.nav-link:hover{
+  background: #000000b8;
+  transform: scale(1.1);
+}
+
+.nav-img {
+  margin-right: auto;
+  @include transration;
+  a {
+    display: block;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.1) rotateZ(10deg);
+  }
+}
+
+.nav-left {
+  margin-left: auto;
+}

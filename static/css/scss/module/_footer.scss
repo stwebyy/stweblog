@@ -1,0 +1,38 @@
+footer {
+  color: #fff;
+}
+
+.footer-contact {
+  margin-top: 10px;
+  text-align: center;
+  p {
+    margin-bottom: 10%;
+  }
+  a {
+    color: #fff;
+    font-size: 16px;
+    transition: 0.7s;
+    text-decoration: underline;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.footer-copyright {
+  text-align: center;
+}
+
+.footer-logo {
+  text-align: center;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.footer-img {
+  display: inline-block;
+  @include transration;
+  &:hover {
+    transform: scale(1.1) rotateZ(-10deg);
+  }
+}

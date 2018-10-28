@@ -1,35 +1,46 @@
-{% extends "base.html" %}
+{% extends "base_detail.html" %}
 {% load static %}
+
+{% block pankuzu %}
+<div class="container">
+<div class="article-detail-pan">
+<a href="/">Home</a> > <span>{{ object.name }}</span>
+</div>
+</div>
+{% endblock %}
+
 {% block content %}
+<p class="article-count"><span class="font-title">投稿記事:{{ count }}件</span></p>
+<p class="text-center index_title">＜<span class="font-bold">{{ object.name }}</span>＞の記事一覧</p>
 <div class="row">
-  <div class="col-sm-9">
-<div class="index-wrap">
-  <p class="text-center index_title">＜<span class="font-bold">{{ object.name }}</span>＞の記事一覧</p>
   {% for field in article_list %}
-  <article class="">
-    <div class="category-link">
+  <div class="col-lg-4 col-sm-6">
+  <div class="article">
+    <div class="article-header">
       <span class="font-small">投稿日:{{field.created_at|date:"Y年n月j日"}}　
-        カテゴリ：<a href="{% url 'article:category_detail' pk=field.category_id %}" class="link-view">{{ field.category_find }}</a>
-        　タグ：{% for tags in field.tag_find %}
-                <a href="{% url 'article:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
+        <br />カテゴリ：<a href="{% url 'article:category_detail' pk=field.category_id %}">{{ field.category_find }}</a>
+        　<br />タグ：{% for tags in field.tag_find %}
+                <a href="{% url 'article:tag_detail' pk=tags.id %}">{{ tags.name }}</a>
               {% endfor %}
     </span>
     </div>
-    <h2><a href="{% url 'article:detail' pk=field.id %}">{{ field.title }}</a></h2>
-    <div class="discript">
-    <span class="index_descript">概要</span>
+    <a href="{% url 'article:detail' pk=field.id %}" class="article-text">
+    <h2 class="t-bg-darkgray-right">{{ field.title }}</h2>
+    {% if field.thumnail %}
+    <div class="article-thumnail">
+      <img class="img-responsive" src="/media/{{ field.thumnail }}">
+    </div>
+    {% else %}
+    {% endif %}
+    <div class="t-bg-darkgray-right article-discript">
       <span class="">{{ field.discript }}</span>
     </div>
-    <div class="mt20">
-    <a href="{% url 'article:detail' pk=field.id %}" class="extra-link">>>続きを読む</a>
-  </div>
-  </article>
-  {% endfor %}
+    <div class="article-see">>> Read more</div>
+    </a>
 </div>
 </div>
-<div class="col-sm-3 text-center">
-{% include 'category_list.html' %}
-{% include 'tag_list.html' %}
+{% endfor %}
+
 </div>
   <div class="btn-field">
     <a href="{% url 'article:category_delete' pk=object.id %}">削除</a>
@@ -37,5 +48,4 @@
     <a href="{% url 'article:post' %}">記事投稿</a>
     <a href="{% url 'article:category_post' %}">カテゴリ追加</a>
   </div>
-</div>
 {% endblock %}
