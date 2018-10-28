@@ -88,8 +88,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stweblog',
-        'USER': '',
-        # 'PASSWORD': 'youya1848',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -158,8 +156,6 @@ MESSAGE_STORSGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'stweb.yy@gmail.com'
-EMAIL_HOST_PASSWORD = 'epcprlpmjgturltq'
 EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
