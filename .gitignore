@@ -6,3 +6,8 @@ db.sqlite3
 migrations
 .env
 __pycache__
+.sass-catch
+scss
+_mixin.scss
+_setting.scss
+app.scss
