@@ -1,0 +1,8 @@
+// mixinの管理用ファイル
+@mixin transration {
+  transition: 0.7s;
+}
+
+@mixin c-white {
+  color: #fff;
+}

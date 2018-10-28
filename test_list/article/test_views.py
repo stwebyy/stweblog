@@ -273,12 +273,12 @@ class Test_views(TestCase):
 
     def test_ContactView(self):
         c = self.client
-        response = c.get(reverse('article:contact'))
+        response = c.get(reverse('stweb:contact'))
         self.assertEqual(response.status_code, 200)
         data = {
         'name' : 'test',
         'message' : 'test contact',
         }
-        post_test = c.post(reverse('article:contact'), data)
+        post_test = c.post(reverse('stweb:contact'), data)
         self.assertEqual(post_test.status_code, 302)
         self.assertRedirects(post_test, '/')

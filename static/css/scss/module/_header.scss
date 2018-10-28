@@ -1,0 +1,37 @@
+.main-title {
+  color: #fff;
+  a {
+    color: #fff;
+    @include transration;
+    font-size: 46px;
+    text-shadow: 5px 5px 10px #fff;
+  }
+  a:hover {
+    color: #fff;
+    opacity: 0.7;
+    text-decoration: none;
+    transform: scale(1.1);
+  }
+}
+
+.main-title {
+  color: #fff;
+  @include transration;
+  text-align: center;
+}
+
+.main-title-bg {
+  display: inline-block;
+  padding: 15px;
+  border-radius: 20%;
+}
+
+.main-subtitle {
+  font-size: 10px;
+  background: #000;
+}
+
+.main-text {
+  color: #f3f3f3;
+  text-align: center;
+}

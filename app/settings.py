@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'stweb',
     'pure_pagination',
     'test_list',
+    'martor',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,37 @@ EMAIL_USE_TLS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+MARTOR_ENABLE_CONFIGS = {
+    'jquery':'true',
+    'living': 'false',
+}
+
+MARTOR_ENABLE_LABEL = True
+
+MARTOR_MARKDOWN_SAFE_MODE = True
+
+MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
+MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
+
+MARTOR_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra',
+    'markdown.extensions.nl2br',
+    'markdown.extensions.smarty',
+    'markdown.extensions.fenced_code',
+    'martor.extensions.urlize',
+    'martor.extensions.del_ins',
+    'martor.extensions.mention',
+    'martor.extensions.emoji',
+    'martor.extensions.mdx_video',
+]
+
+MARTOR_MARKDOWN_EXTENSION_CONFIGS = {}
+
+MARTOR_UPLOAD_URL = '/martor/uploader/'
+
+MARTOR_SEARCH_USERS_URL = '/martor/search-user/'
+
+MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'
+
+CSRF_COOKIE_HTTPONLY = False

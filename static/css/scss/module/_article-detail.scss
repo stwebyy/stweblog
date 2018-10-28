@@ -1,0 +1,61 @@
+.article-detail-wrap .article-detail-text ul li {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.article-detail-wrap .article-detail-text h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  border-left: 2px #fff solid;
+  padding: 5px 10px;
+}
+
+.article-detail-pan {
+  font-size: 12px;
+  margin: 10px 0;
+  a {
+    color: #fff;
+    @include transration;
+    text-decoration: underline;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  span {
+    color: #9c9494;
+  }
+}
+
+.article-detail-title {
+  font-size: 32px;
+  font-weight: bold;
+  border: none;
+  margin: 15px 0;
+}
+
+.article-deatil-link {
+  font-size: 10px;
+  padding: 4px 8px;
+  a {
+    font-size: 12px;
+    border-radius: 30px;
+    color: #fff;
+    @include transration;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.article-detail-discript {
+  font-size: 18px;
+  margin: 25px 0 50px 0;
+  padding: 5px 10px;
+  border-left: 3px #fff solid;
+  font-weight: bold;
+}
+
+.article-detail-text {
+  font-size: 15px;
+  margin: 20px 0;
+}

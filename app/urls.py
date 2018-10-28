@@ -25,4 +25,5 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('article/',  include('article.urls')),
     path('',  include('stweb.urls')),
+    path('martor/', include('martor.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

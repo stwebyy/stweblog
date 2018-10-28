@@ -1,44 +1,48 @@
-{% extends "base.html" %}
+{% extends "base_index.html" %}
+
+{% block pankuzu %}
+<div class="container">
+<div class="article-detail-pan">
+<span>Home</span>
+</div>
+</div>
+{% endblock %}
+
 {% load static %}
 {% block content %}
+<p class="article-count"><span class="font-title">投稿記事:{{ count }}件</span></p>
 <div class="row">
-  <div class="col-sm-9">
-    <div class="index-wrap">
-      <p class="index_title"><span class="title_font">投稿記事:{{ count }}件</span></p>
-      {% for field in object_list %}
-      <article class="">
-        <div class="category-link">
-          <span class="font-small">投稿日:{{field.created_at|date:"Y年n月j日"}}　
-            カテゴリ：<a href="{% url 'stweb:category_detail' pk=field.category_id %}" class="link-view">{{ field.category_find }}</a>
-            　タグ：{% for tags in field.tag_find %}
-                    <a href="{% url 'stweb:tag_detail' pk=tags.id %}" class="link-view">{{ tags.name }}</a>
-                  {% endfor %}
-              　<!-- <span class="text-right">ユーザー：{{ field.user_find }}</span> -->
+  {% for field in object_list %}
+  <div class="col-lg-4 col-sm-6">
+    <div class="article">
+      <div class="article-header">
+        <span class="font-small">{{field.created_at|date:"Y年n月j日"}}<br />
+          カテゴリ：<a href="{% url 'stweb:category_detail' pk=field.category_id %}">{{ field.category_find }}</a>
+          　<br />タグ：{% for tags in field.tag_find %}
+          <a href="{% url 'stweb:tag_detail' pk=tags.id %}">{{ tags.name }}</a>
+          {% endfor %}
+          <!-- <span class="text-right">ユーザー：{{ field.user_find }}</span> -->
         </span>
-        </div>
-        <h2><a href="{% url 'stweb:detail' pk=field.id %}">{{ field.title }}</a></h2>
+      </div>
+      <a href="{% url 'stweb:detail' pk=field.id %}" class="article-text">
+        <h2 class="t-bg-darkgray-right">{{ field.title }}</h2>
         {% if field.thumnail %}
-        <div class="index-thumnail">
+        <div class="article-thumnail">
           <img class="img-responsive" src="/media/{{ field.thumnail }}">
         </div>
         {% else %}
         {% endif %}
-
-        <div class="discript">
-        <span class="index_descript">概要</span>
-          <span class="">{{ field.discript }}</span>
+        <div class="article-mr">
+          <div class="t-bg-darkgray-right article-discript">
+            <span class="">{{ field.discript }}</span>
+          </div>
+          <div class="article-see">>> Read more</div>
         </div>
-        <div class="mt20">
-        <a href="{% url 'stweb:detail' pk=field.id %}" class="extra-link">>>続きを読む</a>
-      </div>
-      </article>
-      {% endfor %}
+      </a>
     </div>
-    {% include 'pagenation.html' %}
   </div>
-  <div class="col-sm-3 text-center">
-    {% include 'category_list_publick.html' %}
-    {% include 'tag_list_publick.html' %}
+  {% endfor %}
 </div>
-</div>
+  {% include 'pagenation.html' %}
+
 {% endblock %}

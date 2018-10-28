@@ -1,9 +1,9 @@
   <div class="">
-    <p class=""><span class="font-bold">カテゴリ一覧</span></p>
+    <p class="font-white">カテゴリ一覧</p>
     <div class="categories">
       {% for categories in more_context %}
       <ul>
-        <li><a href="{% url 'article:category_detail' pk=categories.id %}">{{ categories.name }}：{{ categories.article_count }}件</a></li>
+        <li><a href="{% url 'article:category_detail' pk=categories.id %}" class="font-yellow">{{ categories.name }}：{{ categories.article_count }}件</a></li>
       </ul>
       {% endfor %}
     </div>

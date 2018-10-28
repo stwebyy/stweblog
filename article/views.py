@@ -15,7 +15,7 @@ from django.core.paginator import EmptyPage, InvalidPage
 from django.core.paginator import PageNotAnInteger
 from pure_pagination.mixins import PaginationMixin
 
-from .forms import PostForm, CategoryForm, EditForm, TagForm, TagSelectForm, TagInlineFormSet, ContactForm
+from .forms import PostForm, CategoryForm, EditForm, TagForm, TagSelectForm, TagInlineFormSet
 
 from .models import Category, Article, Tag
 from user.models import User
@@ -25,12 +25,12 @@ from user.models import User
 class IndexView(PaginationMixin, LoginRequiredMixin, ListView):
     model = Article
     template_name = 'article/index.html'
-    paginate_by = 5
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         contact_list = Article.objects.filter(user_id=self.request.user.uuid).order_by('-created_at')
-        paginator = Paginator(contact_list, 5)
+        paginator = Paginator(contact_list, 6)
         try:
             page = int(self.request.GET.get('page'))
         except:
@@ -134,7 +134,8 @@ class CategoryDetail(LoginRequiredMixin, DetailView):
     template_name = 'article/category_detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['article_list'] = Article.objects.filter(category_id=self.object.id).order_by('id')
+        context['article_list'] = Article.objects.filter(category_id=self.object.id).order_by('-id')
+        context['count'] = Article.objects.filter(category_id=self.object.id).count()
         context['more_context'] = Category.objects.filter(user_id=self.request.user.uuid)
         context['more_tags'] = Tag.objects.all()
 
@@ -231,14 +232,3 @@ class TagDeleteView(LoginRequiredMixin, DeleteView):
         return result
 
 tag_delete = TagDeleteView.as_view()
-
-class ContactView(FormView):
-    template_name = 'article/contact.html'
-    form_class = ContactForm
-    success_url = "/"
-
-    def form_valid(self, form):
-        form.send_email()
-        return super(ContactView, self).form_valid(form)
-
-contact = ContactView.as_view()

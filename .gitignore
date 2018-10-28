@@ -1,4 +1,3 @@
-__pycache__
 media
 local_settings.py
 settings.py
@@ -6,3 +5,9 @@ db.sqlite3
 *.py[co]
 migrations
 .env
+__pycache__
+.sass-catch
+scss
+_mixin.scss
+_setting.scss
+app.scss

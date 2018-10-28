@@ -15,7 +15,7 @@ class Tag(models.Model):
 
 
     def article_find(self):
-        article = Article.objects.filter(tag=self)
+        article = Article.objects.filter(tag=self, publick=1)
         return article
 
     def article_find_publick(self):

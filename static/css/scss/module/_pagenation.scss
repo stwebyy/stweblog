@@ -1,0 +1,22 @@
+.pagenation-list {
+  margin: 0 5px;
+}
+
+.active .pagenation-link {
+  display: block;
+  color: #fff;
+  padding: .5rem .75rem;
+  background: #505050;
+}
+
+.pagenation-link {
+  display: block;
+  color: #fff;
+  padding: .5rem .75rem;
+  background: #b9b9b9;
+  @include transration;
+  &:hover {
+    color: #fff;
+    opacity: 0.7;
+  }
+}
