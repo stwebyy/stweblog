@@ -1,6 +1,5 @@
 media
 local_settings.py
-settings.py
 db.sqlite3
 *.py[co]
 migrations
