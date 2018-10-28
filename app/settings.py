@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'pure_pagination',
     'test_list',
     'martor',
+    'martortags',
 ]
 
 MIDDLEWARE = [
