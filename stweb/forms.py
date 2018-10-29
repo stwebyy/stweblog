@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
-
+from django.conf import settings
 
 class ContactForm(forms.Form):
     name = forms.CharField(label='名前') # 名前

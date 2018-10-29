@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'stweb',
     'pure_pagination',
     'test_list',
-    'martor',
-    'martortags',
+    'martor'
 ]
 
 MIDDLEWARE = [
