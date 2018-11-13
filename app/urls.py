@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from article.urls import router as blog_router
 
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
     path('article/',  include('article.urls')),
     path('',  include('stweb.urls')),
     path('martor/', include('martor.urls')),
+    path('api/', include(blog_router.urls)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,5 @@
 import logging
+import django_filters
 
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -14,10 +15,13 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage, InvalidPage
 from django.core.paginator import PageNotAnInteger
 from pure_pagination.mixins import PaginationMixin
+from rest_framework import viewsets, filters
+
 
 from .forms import PostForm, CategoryForm, EditForm, TagForm, TagSelectForm, TagInlineFormSet
-
 from .models import Category, Article, Tag
+from .serializer import ArticleSerializer, CategorySerializer, TagSerializer
+
 from user.models import User
 
 
@@ -232,3 +236,18 @@ class TagDeleteView(LoginRequiredMixin, DeleteView):
         return result
 
 tag_delete = TagDeleteView.as_view()
+
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

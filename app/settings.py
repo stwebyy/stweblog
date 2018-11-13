@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'stweb',
     'pure_pagination',
     'test_list',
-    'martor'
+    'martor',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -194,3 +195,8 @@ MARTOR_SEARCH_USERS_URL = '/martor/search-user/'
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'
 
 CSRF_COOKIE_HTTPONLY = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}

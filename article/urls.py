@@ -1,6 +1,9 @@
 from django.urls import path
+from rest_framework import routers
 
 from . import views
+from .views import ArticleViewSet,TagViewSet, CategoryViewSet
+
 
 app_name = 'article'
 urlpatterns = [
@@ -16,3 +19,8 @@ urlpatterns = [
     path('tag/post', views.tag_post, name='tag_post'),
     path('tag/delete/<int:pk>', views.tag_delete, name='tag_delete'),
 ]
+
+router = routers.DefaultRouter()
+router.register(r'articles', ArticleViewSet)
+router.register(r'tags', TagViewSet)
+router.register(r'categpries', CategoryViewSet)
