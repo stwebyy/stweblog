@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
 import './App.css';
 import axios from 'axios';
 
@@ -25,7 +26,6 @@ class App extends Component {
                 console.log(err);
             });
     }
-
     // render() {
     //     return (
     //       <div>
@@ -44,8 +44,10 @@ class App extends Component {
         <h1>テスト</h1>
           {this.state.todos.map( todos => (
             <div key={todos.id}>
+            <Link to='/detail/:id'>
             <li>{todos.title}</li>
             <li>{todos.text}</li>
+            </Link>
             </div>
           ))}
       </div>
